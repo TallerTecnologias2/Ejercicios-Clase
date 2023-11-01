@@ -6,6 +6,11 @@ import "../interfaces/IOwnersContract.sol";
 abstract contract OwnableContract {
     IOwnersContract ownersContract;
 
+    modifier isOwner(address possibleOwner) {
+        require(ownersContract.isOwner(possibleOwner), "Not an owner");
+        _;
+    }
+
     constructor(address _ownersContract) {
         ownersContract = IOwnersContract(_ownersContract);
     }

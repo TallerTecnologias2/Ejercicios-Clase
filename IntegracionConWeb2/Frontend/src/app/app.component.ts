@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 // Importar Ethers
 import { ethers } from 'ethers';
 declare global {
-  interface Window{
+  interface Window {
     ethereum?: any
   }
 }
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 const contractAbi = [
-  // TODO
+  "function price() external pure returns(uint256)",
+  "function mint(address _recipient) external payable"
 ]
 
 
@@ -44,17 +45,14 @@ export class AppComponent {
       return;
     }
 
-    // TODO: Obtener el precio
+    this.price = await this.ERC20Contract.price();
   }
 
   async buyToken() {
     const tokensAComprar = 10;
+    const weiaGastar = tokensAComprar * this.price;
     
-    // Estimar GAS
-
-    // Firmar
-
-    // Esperar transacción
+    await this.ERC20Contract.mint(this.address, { value: weiaGastar});
   }
 
   priceText() {

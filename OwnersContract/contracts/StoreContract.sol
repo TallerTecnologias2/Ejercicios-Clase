@@ -21,7 +21,7 @@ contract Store is OwnableContract {
      * @dev Revertir si `msg.sender` no es un Owner. Mensaje "Not an Owner".
      * @param _price Es el nuevo precio para comprar
      */
-    function setPrice(uint256 _price) external {
+    function setPrice(uint256 _price) external isOwner(msg.sender) {
         // TODO
     }
 }
