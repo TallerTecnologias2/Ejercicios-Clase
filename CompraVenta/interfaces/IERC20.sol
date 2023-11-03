@@ -61,7 +61,7 @@ interface IERC20 {
      * @dev Revertir si el msg.sender no es el owner del contrato
      * @dev Revertir si el suministro total superó el suministro máximo. Mensaje: "Total supply exceeds maximum supply"
      */
-    function mint() external;
+    function mint(uint256 _amount) external;
 
     /**
      * @notice Asigna el address de marketplace
