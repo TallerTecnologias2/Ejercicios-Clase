@@ -63,6 +63,13 @@ interface IERC20 {
      */
     function mint() external;
 
+    /**
+     * @notice Asigna el address de marketplace
+     * @dev Revertir si el msg.sender no es el owner del contrato
+     * @dev Revertir si el _marketplace es el address 0
+     */
+    function setMarketplaceAddress(address _marketplace) external;
+
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
