@@ -9,18 +9,27 @@ import "../interfaces/IOwnersContract.sol";
 
 contract Marketplace is IMarketplace, OwnableContract {
     
-    constructor(address _ownersContract) OwnableContract(_ownersContract) {
-
-    }
+    uint256 private price;
+    address private nftAddress;
 
     
+
+
+    constructor(address _ownersContract, uint256 _price, address _nftAddress ) OwnableContract(_ownersContract) {
+        price = _price;
+        nftAddress = _nftAddress;
+    }
+
+
     function price() external returns (uint256){
-        return 0;
+        return price;
     }
     function ownersAddress() external returns (address){
-        return this.ownersContract;
+        return ownersContract;
     }
-    function nftAddress() external returns (address);
+    function nftAddress() external returns (address){
+        return nftAddress;
+    }
 
     /**
      * @notice Permite comprar un NFT.
@@ -28,6 +37,10 @@ contract Marketplace is IMarketplace, OwnableContract {
      * @dev Revertir si msg.value no alcanza para pagar por el NFT al precio actual. Mensaje: "Insufficient ETH"
      * @return Es el identificador del NFT comprado.
      */
-    function buyNFT() external payable returns (uint256);
+    function buyNFT() external payable returns (uint256) {
+        require(msg.value >= price, "Insufficient ETH");
+        emit NFTBought(1);
+        return 1;
+    }
 
 }
